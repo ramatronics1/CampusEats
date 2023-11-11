@@ -14,7 +14,6 @@ const signupSchema = new mongoose.Schema({
     },
 });
 
-// Add any necessary password hashing or other middleware here...
 
 const Signup = mongoose.model('Signup', signupSchema);
 
