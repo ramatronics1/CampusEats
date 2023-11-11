@@ -24,9 +24,8 @@ route.post('/login', async (req, res) => {
             const validPassword = await bcrypt.compare(password, user.password);
 
             if (validPassword) {
-                console.log(user._id);
-                req.session.user_id = user._id;
-                console.log(req.session.user_id);
+                
+                
 
                 res.status(200).json({ success: true, message: 'Login successful' });
             } else {
@@ -54,7 +53,7 @@ route.post('/signup', async (req, res) => {
         });
 
         const savedUser = await user.save();
-        req.session.user_id = user._id;
+        
 
         res.status(201).json(savedUser);
     } catch (error) {
