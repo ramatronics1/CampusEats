@@ -3,14 +3,42 @@ const route = express.Router();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const Signup = require('../models/schema'); 
+const Signup = require('../models/adminSchema'); 
+
+const Dish = require('../models/adminSchema')
 
 
-route.get('/login', async (req, res) => {
 
-    res.send('hello')
-}
-)
+
+route.post('/addNewDish', async (req, res) => {
+    try {
+
+  
+      const newDish = new Dish({
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        category: req.body.category,
+        imageUrl: req.body.imageUrl,
+        ingredients: req.body.ingredients,
+        isVegetarian: req.body.isVegetarian || false,
+      });
+  
+      const savedDish = await newDish.save();
+      res.json(savedDish);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  route.get('/displayDishes', async (req, res) => {
+    try {
+      const dishes = await Dish.find();
+      res.json(dishes);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
 route.post('/login', async (req, res) => {
     
 
@@ -25,7 +53,7 @@ route.post('/login', async (req, res) => {
 
             if (validPassword) {
                 
-                
+                console.log("logged in")
 
                 res.status(200).json({ success: true, message: 'Login successful' });
             } else {

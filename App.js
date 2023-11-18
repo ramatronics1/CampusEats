@@ -13,7 +13,9 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         
-        <Stack.Screen name ='HomeScreen' component={HomeScreen}/>
+        <Stack.Screen name ='Welcome' component={Welcome}/>
+        <Stack.Screen name ='LoginPage' component={LoginPage}/>
+        <Stack.Screen name ='SignupPage' component={SignupPage}/>
         {/* Add screens for Login, SignUp, and About here */}
       </Stack.Navigator>
     </NavigationContainer>

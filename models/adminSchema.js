@@ -4,17 +4,12 @@ const signupSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
-        trim: true,
-        lowercase: true,
     },
     password: {
         type: String,
         required: true,
     },
 });
-
-const mongoose = require('mongoose');
 
 
 const dishSchema = new mongoose.Schema({
@@ -35,7 +30,7 @@ const dishSchema = new mongoose.Schema({
     required: true,
   },
   imageUrl: {
-    type: String,
+    type: [String],
     required: true,
   },
   ingredients: {
@@ -44,6 +39,29 @@ const dishSchema = new mongoose.Schema({
   }
   
 });
+
+
+const reviewSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  rating: {
+    type: Number,
+    required: true,
+    min: 1,
+    max: 5,
+  },
+  comment: {
+    type: String,
+  },
+});
+
+const Review = mongoose.model('Review', reviewSchema);
+
+module.exports = Review;
+
 
 const Dish = mongoose.model('Dish', dishSchema);
 

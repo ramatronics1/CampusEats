@@ -18,12 +18,9 @@ mongoose.connect('mongodb://localhost:27017/majorproject')
         console.log(err);
     })
 
-    app.get('/',(req,res)=>
-    {
-        
-    })
+   
 
 
-app.listen(3000,()=>{
+app.listen(5000,'192.168.1.36' ,()=>{
     console.log('server running')
 })
