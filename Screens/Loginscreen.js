@@ -12,7 +12,7 @@ const LoginPage = () => {
   const handleLogin = async () => {
     try {
       console.log('Logging in with:', email, password);
-      const response = await axios.post('route', {
+      const response = await axios.post('http://192.168.1.36:5000/login', {
         email: email,
         password: password,
       });
