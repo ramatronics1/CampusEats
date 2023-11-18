@@ -6,30 +6,31 @@ const mongoose = require('mongoose');
 const Signup = require('../models/adminSchema'); 
 
 const Dish = require('../models/adminSchema')
+const multer = require('multer');
+const {storage}=require('../cloudinary/cloudinary')
+const upload = multer({storage });
 
 
 
 
-route.post('/addNewDish', async (req, res) => {
-    try {
+route.post('/addNewDish', upload.multiple('image'), async (req, res) => {
+  try {
+    const newDish = new Dish({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      imageUrl: req.file ? req.file.path : '', // Assuming 'image' is the field name in the form
+      ingredients: req.body.ingredients,
+      isVegetarian: req.body.isVegetarian || false,
+    });
 
-  
-      const newDish = new Dish({
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-        category: req.body.category,
-        imageUrl: req.body.imageUrl,
-        ingredients: req.body.ingredients,
-        isVegetarian: req.body.isVegetarian || false,
-      });
-  
-      const savedDish = await newDish.save();
-      res.json(savedDish);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
-  });
+    const savedDish = await newDish.save();
+    res.json(savedDish);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
   route.get('/displayDishes', async (req, res) => {
     try {
