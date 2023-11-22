@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, Text, StyleSheet, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import HomeScreen from './Home';
 
 const LoginPage = () => {
   const navigation = useNavigation();
@@ -12,7 +13,7 @@ const LoginPage = () => {
   const handleLogin = async () => {
     try {
       console.log('Logging in with:', email, password);
-      const response = await axios.post('http://192.168.1.36:5000/login', {
+      const response = await axios.post('http://192.168.1.40:5000/login', {
         email: email,
         password: password,
       });
@@ -22,7 +23,7 @@ const LoginPage = () => {
 
       if (success) {
         setMessage('Login successful');
-        navigation.navigate('Main'); // Replace 'MainScreen' with the name of the screen you want to navigate to
+        navigation.navigate('HomeScreen'); // Replace 'MainScreen' with the name of the screen you want to navigate to
       } else {
         setMessage(message);
       }

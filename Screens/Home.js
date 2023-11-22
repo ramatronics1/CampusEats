@@ -8,6 +8,7 @@ const HomeScreen = () => {
   const handleUpdateMenu = () => {
     // Add logic for handling "Update Menu" button press
     console.log('Update Menu button pressed');
+    navigation.navigate('UploadScreen');
   };
 
   const handleOrderList = () => {
