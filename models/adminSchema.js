@@ -3,43 +3,43 @@ const mongoose = require("mongoose");
 const signupSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: true,
+      
     },
     password: {
         type: String,
-        required: true,
+       
     },
 });
 
+const imageSchema = new mongoose.Schema({
+  url: String,
+  filename: String,
+});
 
 const dishSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+   
   },
   description: {
     type: String,
-    required: true,
+    
   },
   price: {
     type: Number,
-    required: true,
+   
   },
   category: {
     type: String,
-    required: true,
+  
   },
   imageUrl: {
-    type: [String],
-    required: true,
+    type: [imageSchema],
   },
   ingredients: {
     type: [String], 
-    required: true,
   }
-  
 });
-
 
 const reviewSchema = new mongoose.Schema({
   userId: {
@@ -59,16 +59,11 @@ const reviewSchema = new mongoose.Schema({
 });
 
 const Review = mongoose.model('Review', reviewSchema);
-
-module.exports = Review;
-
-
 const Dish = mongoose.model('Dish', dishSchema);
-
-module.exports = Dish;
-
-
-
 const Signup = mongoose.model('Signup', signupSchema);
 
-module.exports = Signup;
+module.exports = {
+  Review,
+  Dish,
+  Signup,
+};

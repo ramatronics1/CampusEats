@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudinary Image Upload</title>
+</head>
+<body>
+
+<h1>Upload Image to Cloudinary</h1>
+
+<form id="uploadForm" enctype="multipart/form-data">
+    <label for="image">Select Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required>
+    <button type="button" onclick="uploadImage()">Upload Image</button>
+</form>
+
+<script>
+ fetch('http://192.168.1.42:5000/addNewDish', {
+    method: 'POST',
+    body: formData
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+})
+.then(data => {
+    console.log('Upload Response:', data);
+    alert('Image uploaded successfully!');
+})
+.catch(error => {
+    console.error('Error uploading image:', error);
+    alert('Error uploading image. Please try again.');
+});
+
+</script>
+
+</body>
+</html>

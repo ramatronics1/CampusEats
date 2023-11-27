@@ -3,33 +3,39 @@ const route = express.Router();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const Signup = require('../models/adminSchema'); 
+const { Review, Dish, Signup } = require('../models/adminSchema');
 
-const Dish = require('../models/adminSchema')
+const multer = require('multer');
+const { storage } = require('../cloudinary/index');
+const upload = multer({ storage });
+
+route.post('/addNewDish', upload.array('image'), async (req, res) => {
+  const imageFiles = req.files.map((f) => ({ url: f.path, filename: f.filename }));
+  try {
+    const { name, description, price, category, ingredients } = req.body;
+
+    const newDish = new Dish({
+      name: name,
+      description: description,
+      price: price,
+      category: category,
+      imageUrl: imageFiles,
+      ingredients: ingredients, // Corrected assignment
+    });
+
+    console.log(newDish);
+
+    await newDish.save();
+
+    res.status(201).json({ message: 'Dish added successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 
-
-route.post('/addNewDish', async (req, res) => {
-    try {
-
-  
-      const newDish = new Dish({
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-        category: req.body.category,
-        imageUrl: req.body.imageUrl,
-        ingredients: req.body.ingredients,
-        isVegetarian: req.body.isVegetarian || false,
-      });
-  
-      const savedDish = await newDish.save();
-      res.json(savedDish);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
-  });
 
   route.get('/displayDishes', async (req, res) => {
     try {
