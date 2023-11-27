@@ -6,13 +6,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const cors = require('cors');
 require('dotenv').config();
-console.log(process.env.CLOUDINARY_SECRET)
 
-const auth = require('./auth/routes')
 
-app.use(auth)
-app.use(cors());
+const routes = require('./auth/routes')
+const clientRoutes = require('./auth/clientRoutes')
 
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+  };
+  
+  app.use(cors(corsOptions));
+  app.use(routes)
+  app.use(clientRoutes)
+  
 mongoose.connect('mongodb://localhost:27017/majorproject')
     .then(()=>{
         console.log('database connected');

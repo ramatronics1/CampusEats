@@ -34,10 +34,7 @@ route.post('/addNewDish', upload.array('image'), async (req, res) => {
   }
 });
 
-
-
-
-  route.get('/displayDishes', async (req, res) => {
+ route.get('/displayDishes', async (req, res) => {
     try {
       const dishes = await Dish.find();
       res.json(dishes);
@@ -45,8 +42,8 @@ route.post('/addNewDish', upload.array('image'), async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   });
-route.post('/login', async (req, res) => {
-    
+route.get('/adminLogin', async (req, res) => {
+  
 
     const { email, password } = req.body;
 
@@ -74,7 +71,7 @@ route.post('/login', async (req, res) => {
     }
 });
 
-route.post('/signup', async (req, res) => {
+route.post('/adminSignup', async (req, res) => {
     const { email, password } = req.body;
 
     try {
