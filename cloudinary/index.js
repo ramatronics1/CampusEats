@@ -10,7 +10,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'campuseats',
-    allowed_formats: ['jpeg', 'png', 'jpg']  // Use square brackets for array
+    allowed_formats: ['jpeg', 'png', 'jpg'] 
   }
 });
 

@@ -20,7 +20,7 @@ route.post('/addNewDish', upload.array('image'), async (req, res) => {
       price: price,
       category: category,
       imageUrl: imageFiles,
-      ingredients: ingredients, // Corrected assignment
+      ingredients: ingredients, 
     });
 
     console.log(newDish);
