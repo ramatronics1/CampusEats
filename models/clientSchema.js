@@ -33,6 +33,19 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
+const authSchema = new mongoose.Schema({
+  usn: {
+    type: String,
+  },
+  dob: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+});
+
+const Auth = mongoose.model('Auth', authSchema);
 const Order = mongoose.model('Order', orderSchema);
 
-module.exports = Order;
+module.exports = { Auth, Order };
